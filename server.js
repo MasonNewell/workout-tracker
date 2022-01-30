@@ -9,10 +9,10 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(require("./controllers/index"));
+app.use(require("./routes/index"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
 
-module.exports = db;
+// module.exports = db;
