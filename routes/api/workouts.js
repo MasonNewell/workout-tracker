@@ -4,7 +4,7 @@ const router = require("express").Router();
 
 // Get all workouts
 router.get("/", (req, res) => {
-  res.sendFile("hello world");
+  res.json("hello world");
 });
 
 // ????    but must be before /:id
@@ -20,6 +20,11 @@ router.get("/:id", (req, res) => {
 // Post new workout
 router.post("/", (req, res) => {
   // return ...
+});
+
+// Put on old/current workout
+router.put("/undefined", (req, res) => {
+  res.json("hello api/workouts/range");
 });
 
 module.exports = router;
