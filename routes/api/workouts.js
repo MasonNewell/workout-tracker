@@ -1,30 +1,53 @@
 const router = require("express").Router();
-// models
+const Workout = require("../../models/workout");
+
 // ======= /api/workouts
 
 // Get all workouts
 router.get("/", (req, res) => {
-  res.json("hello world");
+  Workout.find({})
+    .then((workoutData) => {
+      res.json(workoutData);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
 });
 
-// ????    but must be before /:id
+// Get workouts in range
 router.get("/range", (req, res) => {
-  res.json("hello api/workouts/range");
+  Workout.find({})
+    .then((workoutData) => {
+      res.json(workoutData);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
 });
 
 // Get workout by ID
-router.get("/:id", (req, res) => {
-  res.json("hello ID world");
+router.get("/:id", ({ params, body }, res) => {
+  Workout.findById({ _id: params.id })
+    .then((workoutData) => res.json(workoutData))
+    .catch((error) => res.status(400).json(error));
 });
 
 // Post new workout
-router.post("/", (req, res) => {
-  // return ...
+router.post("/", ({ body }, res) => {
+  Workout.create(body)
+    .then((exerciseData) => {
+      res.json(exerciseData);
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
 });
 
 // Put on old/current workout
-router.put("/undefined", (req, res) => {
-  res.json("hello api/workouts/range");
+router.put("/:id", ({ params, body }, res) => {
+  Workout.findOneAndUpdate({ _id: params.id }, { $push: { exercises: body } }, { new: true })
+    .then((updatedWorkout) => res.json(updatedWorkout))
+    .catch((error) => res.status(400).json(error));
 });
 
 module.exports = router;
