@@ -17,6 +17,7 @@ router.get("/", (req, res) => {
 // Get workouts in range
 router.get("/range", (req, res) => {
   Workout.find({})
+    .limit(9)
     .then((workoutData) => {
       res.json(workoutData);
     })
