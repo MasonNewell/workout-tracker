@@ -6,9 +6,15 @@ async function initWorkout() {
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
 
+    let fullDuration = 0;
+    lastWorkout.exercises.map((exercise) => {
+      fullDuration += exercise.duration;
+    });
+    console.log(fullDuration);
+
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.exercises[0].duration,
+      totalDuration: fullDuration,
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises),
     };
